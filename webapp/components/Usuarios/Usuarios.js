@@ -13,7 +13,7 @@ const TabUsuarios = () => {
       </div>
    </div>
    <div class="row mt-3">
-      <div class="col-xl-2 offset-xl-10 col-lg-2 offset-lg-10 col-md-4 offset-lg-8 col-sm-12 col-12" align="right">
+      <div class="col-12 col-md-3" align="right">
          <div class="input-group">
             <input type="text" name="inpBusquedaUsuario" id="inpBusquedaUsuario" class="form-control border-end-0" placeholder="Buscar usuario" onkeyUp="fn_buscar_usuario();">
             <span class="input-group-text border-start-0 bg-white"><i class="bi bi-search"></i></span>

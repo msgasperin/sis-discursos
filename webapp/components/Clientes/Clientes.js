@@ -272,7 +272,7 @@ const ModalFormCliente = () => {
             <div class="modal-body bg-light">
                <div class="row">
                   <div class="col-md-6 col-sm-12 col-12 mt-3">
-                     <b>Nombre *</b>
+                     <b>Razón social *</b>
                      <input type="text" name="nomCliente" id="nomCliente" class="form-control" maxlength="150">
                   </div>
                   <div class="col-md-3 col-sm-6 col-6 mt-3">
