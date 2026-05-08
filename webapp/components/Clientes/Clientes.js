@@ -11,8 +11,8 @@ const TabClientes = () => {
          <button class="btn btn-dark btn-lib btn-redondo w-100 fs-6" type="button" id="btnNuevoCliente" onclick="ModalFormCliente();"><i class="bi bi-plus-lg"></i> Nuevo cliente</button>
       </div>
    </div>
-   <div class="row">
-      <div class="col-xl-2 offset-xl-10 col-lg-2 offset-lg-10 col-md-4 offset-lg-8 col-sm-12 col-12" align="right">
+   <div class="row mt-2">
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12" align="right">
          <div class="input-group">
             <input type="text" name="inpBusquedaClientes" id="inpBusquedaClientes" class="form-control border-end-0" placeholder="Buscar cliente"  onkeyUp="fn_buscar_evaluaciones();">
             <span class="input-group-text border-start-0 bg-white"><i class="bi bi-search"></i></span>
@@ -232,7 +232,7 @@ const pintarClientes = (containerId) => {
             <!-- Footer -->
             <div class="card-footer bg-white border-top-0 pb-3">
                <div class="d-flex justify-content-end gap-2">
-                  <button class="btn btn-outline-secondary btn-redondo btn-sm px-3" title="Ver evaluaciones" onclick="ModalVerEvaluacionesCliente('${cl.id}');">
+                  <button class="btn btn-menta btn-redondo btn-sm px-3" title="Ver evaluaciones" onclick="ModalEvaluacionesPorCliente('${cl.razonSocial}');">
                      <i class="bi bi-clipboard2-pulse me-1"></i> Evaluaciones
                   </button>
                   <button class="btn btn-outline-secondary btn-redondo btn-sm px-2" title="Editar" onclick="ModalFormCliente('${cl.id}');">
@@ -240,7 +240,7 @@ const pintarClientes = (containerId) => {
                   </button>`;
                   if(cl.estatus == 'Activo') {
                      html+=`
-                     <button class="btn btn-outline-danger btn-redondo btn-sm px-2" title="Eliminar">
+                     <button class="btn btn-salmon btn-redondo btn-sm px-2" title="Eliminar">
                         <i class="bi bi-trash"></i>
                      </button>`;
                   }

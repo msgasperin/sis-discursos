@@ -56,6 +56,10 @@
   background-color: #63707c;
 }
 
+.bg-salmon {
+  background-color: #F26B7C;
+}
+
 .form-control {
   border-radius: 0px;
 }
@@ -92,6 +96,49 @@
 
 .text-lib {
   color: var(--primary-dark);
+}
+
+.btn-menta {
+  background-color: #49C3CA;
+  border-color: #49C3CA;
+  color: var(--blanco);
+  border-radius: 2px;
+}
+
+.btn-menta:hover {
+  background-color: #1da1a8;
+  border-color: #1da1a8;
+  color: var(--blanco);
+  border-radius: 2px;
+}
+
+.btn-salmon {
+  background-color: #F26B7C;
+  border-color: #F26B7C;
+  color: var(--blanco);
+  border-radius: 2px;
+}
+
+.btn-salmon:hover {
+  background-color: #ce394d;
+  border-color: #ce394d;
+  color: var(--blanco);
+  border-radius: 2px;
+}
+
+
+.btn-mostaza {
+  background-color: #FFCC66;
+  border-color: #FFCC66;
+  color: var(--negro);
+  border-radius: 2px;
+}
+
+.btn-mostaza:hover {
+  background-color: #d8991d;
+  border-color: #d8991d;
+  color: var(--negro);
+  border-radius: 2px;
 }
 
 .btn-danger-custom {

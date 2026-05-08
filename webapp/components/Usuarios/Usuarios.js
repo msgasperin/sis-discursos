@@ -475,11 +475,9 @@ const fn_buscar_usuario = () => {
 // Interfaces
 window.TabUsuarios          = TabUsuarios;
 window.ModalFormUsuario     = ModalFormUsuario;
-window.ModalActualizarLlave = ModalActualizarLlave;
 window.ModalLogsMovimientos = ModalLogsMovimientos;
 // Funciones
 window.fn_eliminar_usuario  = fn_eliminar_usuario;
 window.fn_guardar_usuario   = fn_guardar_usuario;
 window.fn_buscar_usuario    = fn_buscar_usuario;
-window.fn_actualizar_llave  = fn_actualizar_llave;
 window.fn_consultar_log     = fn_consultar_log;
