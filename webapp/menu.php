@@ -30,10 +30,12 @@
           </div>
         </div>
         <div class="mt-cel">
+          <!--
           <div class="opciones_menu align-menu" id="opcionEvaluaciones" onclick="opcionActive('opcionEvaluaciones'), TabEvaluaciones(), cerrarMenu();">
             <i class="bi bi-clipboard-data icon-menu"></i>
             <div>Evaluaciones</div>
           </div>
+          -->
 
           <?php if($_SESSION["perfil"] == 1 || $_SESSION["perfil"] == 2) { ?>
             <div class="opciones_menu align-menu" id="opcionClientes" onclick="opcionActive('opcionClientes'), TabClientes(), cerrarMenu();">

@@ -1,5 +1,9 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ FUNCIONES MODAL LISTADO EVALUACIONES +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+let dataEvaluaciones = [
+   { id: '1', registro: '01-05-2026', aplicacion: '10-05-2026', hora:'12:00', personas: 15, tipo: 'Guía de referencia I', estatus: 'Programada', color: 'primary' }
+];
+
 const TabEvaluaciones = () => {
    let fecha = fnFechaActual();
    activarLoad('Cargando evaluaciones...');
@@ -17,7 +21,7 @@ const TabEvaluaciones = () => {
          <div class="input-group">
             <input type="date" name="inpFechaIniCita" id="inpFechaIniCita" class="form-control" value="${fecha}">
             <input type="date" name="inpFechaFinCita" id="inpFechaFinCita" class="form-control" value="${fechaRangoAdelante}">
-            <button class="btn btn-dark" type="button" onclick="fn_obtiene_pedidos_fecha();"><i class="bi bi-arrow-clockwise"></i></button>
+            <button class="btn btn-dark btn-lib" type="button" onclick="fn_obtiene_pedidos_fecha();"><i class="bi bi-arrow-clockwise"></i></button>
          </div>
       </div>
       <div class="col-xl-3 offset-xl-5 col-lg-3 offset-lg-5 col-md-4 offset-md-4 col-sm-6 col-12 mt-3" align="right">
@@ -43,12 +47,7 @@ const pintarEvaluaciones = (containerId) => {
    
    const evaluaciones = [
       { id: '1', cliente: 'Industrias Alfa', registro: '01-05-2026', aplicacion: '10-05-2026', hora:'12:00', personas: 15, tipo: 'Guía de referencia I', estatus: 'Programada', color: 'primary' },
-      { id: '2', cliente: 'Servicios Beta', registro: '02-05-2026', aplicacion: '08-05-2026', hora:'12:00', personas: 45, tipo: 'Guía de referencia II', estatus: 'Aplicada', color: 'success', resultado: 'Muy Alto' },
-      { id: '3', cliente: 'Logística Delta', registro: '03-05-2026', aplicacion: '12-05-2026', hora:'12:00', personas: 8, tipo: 'Guía de referencia III', estatus: 'Finalizada', color: 'dark' },
-      { id: '4', cliente: 'Consultoría Gama', registro: '04-05-2026', aplicacion: '07-05-2026', hora:'12:00', personas: 120, tipo: 'Guía de referencia II', estatus: 'Aplicada', color: 'success', resultado: 'Bajo' },
-      { id: '5', cliente: 'Manufacturas Zeta', registro: '04-05-2026', aplicacion: '15-05-2026', hora:'12:00', personas: 30, tipo: 'Guía de referencia I', estatus: 'Programada', color: 'primary' },
-      { id: '6', cliente: 'Tiendas Omega', registro: '05-05-2026', aplicacion: '06-05-2026', hora:'12:00', personas: 22, tipo: 'Guía de referencia III', estatus: 'Aplicada', color: 'success', resultado: 'Alto' },
-      { id: '7', cliente: 'Banco Capital', registro: '06-05-2026', aplicacion: '20-05-2026', hora:'12:00', personas: 55, tipo: 'Guía de referencia II', estatus: 'Programada', color: 'primary' }
+      { id: '2', cliente: 'Servicios Beta', registro: '02-05-2026', aplicacion: '08-05-2026', hora:'12:00', personas: 45, tipo: 'Guía de referencia II', estatus: 'Aplicada', color: 'success', resultado: 'Muy Alto' }
    ];
 
    // Función interna para obtener el color quemado del resultado
@@ -167,28 +166,19 @@ const pintarEvaluaciones = (containerId) => {
    contenedor.innerHTML = html;
 }
 
-const ModalFormEvaluacion = () => {
+const ModalFormEvaluacion = (cliente) => {
    let html = `
    <div class="modal fade modal-superior-blur" id="modalFormEvaluacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
       <div class="modal-dialog modal-lg modal-fullscreen-md-down">
          <div class="modal-content sombra-modal">
             <div class="modal-header modal-head-per">
-               <h1 class="modal-title fs-5">Registrar Nueva Evaluación</h1>
+               <h1 class="modal-title fs-5">Registrar Nueva Evaluación: ${cliente}</h1>
                <button type="button" class="btn btn-outline-light btn-sm btn-redondo" data-bs-dismiss="modal" aria-label="Close">
                   <i class="bi bi-x-lg"></i>
                </button>
             </div>
             <div class="modal-body bg-light">
                <div class="row">
-                  <div class="col-12 mt-2">
-                     <b>Cliente *</b>
-                     <div class="input-group">
-                        <select name="clienteEval" id="clienteEval" class="form-select select2">
-                           <option value="0">Seleccionar</option>
-                        </select>
-                        <button class="btn btn-dark" type="button" onclick="ModalFormCliente();"><i class="bi bi-plus-lg"></i></button>
-                     </div>
-                  </div>
                   <div class="col-12 mt-3">
                      <b>Fecha de apliación *</b>
                      <input type="date" name="fechaAplicacion" id="fechaAplicacion" class="form-control">
@@ -217,7 +207,7 @@ const ModalFormEvaluacion = () => {
                </div>                     
             </div>
             <div class="modal-footer bg-light border-0" align="right">
-               <button type="button" class="btn btn-dark btn-redondo btn-lib">
+               <button type="button" class="btn btn-dark btn-redondo btn-lib" onclick="fn_nueva_evaluacion('${cliente}');">
                   Registrar Evaluación
                </button>
                <button type="buttton" class="btn btn-outline-dark btn-redondo" data-bs-dismiss="modal">
@@ -227,7 +217,7 @@ const ModalFormEvaluacion = () => {
          </div>
       </div>
    </div>`;
-   $('#modalAdmin').html(html);
+   $('#modalAdminExt').html(html);
    $('#modalFormEvaluacion').modal('show');
    $('.select2').select2({
       dropdownParent: $('#modalFormEvaluacion'),
@@ -434,15 +424,24 @@ const ModalEvaluacionesPorCliente = (cliente) => {
                </button>
             </div>
             <div class="modal-body bg-light">
-               <div class="p-3 rounded-3 border-start border-4 border-mostaza bg-white shadow-sm mb-4">
-                  <div class="d-flex justify-content-between align-items-start">
-                     <div>
+               <div class="p-3 rounded-3 border-start border-4 border-warning bg-white shadow-sm mb-4">
+                  <div class="row">
+                     <div class="col-7">
                         <h4 class="text-dark fw-bold mb-0">${cliente}</h4>
                         <small class="text-muted">Historial de evaluaciones del cliente</small>
                      </div>
-                     <span class="badge rounded-pill bg-mostaza bg-opacity-10 text-dark border border-mostaza">
-                        <i class="bi bi-folder2-open me-1"></i> Expediente Digital
-                     </span>
+                     <div class="col-5 text-end">
+                        <span class="badge rounded-pill bg-mostaza bg-opacity-10 text-dark border border-mostaza">
+                           <i class="bi bi-folder2-open me-1"></i> Expediente Digital
+                           <select name="anioExpediente" id="anioExpediente" class="border-0 p-2 ms-2 bg-white">
+                              <option value="2026">2026</option>
+                              <option value="2025">2025</option>
+                           </select>
+                        </span>
+                        <button class="btn btn-dark btn-lib btn-redondo fs-7 ms-2" type="button" id="btnNuevaCita" onclick="ModalFormEvaluacion('${cliente}');">
+                           <i class="bi bi-plus-lg"></i> Nueva evaluación
+                        </button>
+                     </div>
                   </div>
                </div>
                <div id="listado_evaluaciones_cliente"></div>
@@ -454,7 +453,7 @@ const ModalEvaluacionesPorCliente = (cliente) => {
       </div>
    </div>`;
 
-   $('#modalAdminExt').html(html);
+   $('#modalAdmin').html(html);
    $('#modalEvaluacionesCliente').modal('show');
    
    // Llamamos a la función para pintar las evaluaciones dentro de la modal
@@ -464,16 +463,6 @@ const ModalEvaluacionesPorCliente = (cliente) => {
 const pintarEvaluacionesPorCliente = (containerId, clienteNombre) => {
    const contenedor = document.getElementById(containerId);
    
-   const dataGlobal = [
-      { id: '1', cliente: 'Industrias Alfa', registro: '01-05-2026', aplicacion: '10-05-2026', hora:'12:00', personas: 15, tipo: 'Guía de referencia I', estatus: 'Programada', color: 'primary' },
-      { id: '2', cliente: 'Servicios Beta', registro: '02-05-2026', aplicacion: '08-05-2026', hora:'12:00', personas: 45, tipo: 'Guía de referencia II', estatus: 'Aplicada', color: 'success', resultado: 'Muy Alto' },
-      { id: '3', cliente: 'Logística Delta', registro: '03-05-2026', aplicacion: '12-05-2026', hora:'12:00', personas: 8, tipo: 'Guía de referencia III', estatus: 'Finalizada', color: 'dark' },
-      { id: '4', cliente: 'Servicios Beta', registro: '04-05-2026', aplicacion: '07-05-2026', hora:'12:00', personas: 120, tipo: 'Guía de referencia II', estatus: 'Aplicada', color: 'success', resultado: 'Bajo' },
-      { id: '5', cliente: 'Servicios Beta', registro: '04-05-2026', aplicacion: '15-05-2026', hora:'12:00', personas: 30, tipo: 'Guía de referencia I', estatus: 'Programada', color: 'primary' },
-      { id: '6', cliente: 'Servicios Beta', registro: '05-05-2026', aplicacion: '06-05-2026', hora:'12:00', personas: 22, tipo: 'Guía de referencia III', estatus: 'Aplicada', color: 'success', resultado: 'Alto' },
-      { id: '7', cliente: 'Banco Capital', registro: '06-05-2026', aplicacion: '20-05-2026', hora:'12:00', personas: 55, tipo: 'Guía de referencia II', estatus: 'Programada', color: 'primary' }
-   ];
-
    const obtenerEstiloResultado = (nivel) => {
       const mapeo = {
          'Muy Alto': { color: '#8b0000', icono: 'bi-exclamation-triangle-fill' },
@@ -487,7 +476,7 @@ const pintarEvaluacionesPorCliente = (containerId, clienteNombre) => {
 
    let html = `<div class="row g-3">`;
 
-   dataGlobal.forEach(ev => {
+   dataEvaluaciones.forEach(ev => {
       let htmlResultado = '';
       
       if (ev.estatus === 'Aplicada' && ev.resultado) {
@@ -559,9 +548,12 @@ const pintarEvaluacionesPorCliente = (containerId, clienteNombre) => {
                   
                   if (ev.estatus === 'Programada') {
                      html+=`
-                     <a href="guia1" target="_blank" class="btn btn-sm btn-mostaza btn-redondo" title="Aplicar evaluación">
-                        Aplicar evaluación
+                     <a href="guia1" target="_blank" class="btn btn-sm btn-mostaza btn-redondo" title="Aplicar examen">
+                        Aplicar examen
                      </a>
+                     <button class="btn btn-sm btn-outline-success btn-redondo ms-1" title="Marcar como aplicada" onclick="fn_marcar_aplicada('${clienteNombre}');">
+                        <i class="bi bi-check-lg"></i>
+                     </button>
                      <button class="btn btn-sm btn-outline-secondary btn-redondo ms-1" title="Editar" onclick="ModalFormEvaluacion();">
                         <i class="bi bi-pencil"></i>
                      </button>
@@ -580,6 +572,34 @@ const pintarEvaluacionesPorCliente = (containerId, clienteNombre) => {
    contenedor.innerHTML = html;
 }
 
+const fn_marcar_aplicada = async (cliente) => {
+   const res = await showMessageSwalQuestion('¿Estás seguro?', 'La evaluación será marcada como aplicada', 'question', 'Sí, marcar', 'Cancelar');
+   
+   if (!res.result) {
+      return;
+   }
+
+   dataEvaluaciones[0].estatus   = 'Aplicada';
+   dataEvaluaciones[0].resultado = 'Muy Alto';
+   dataEvaluaciones[0].color     = 'success';
+   showMessageSwalTimer('¡Evaluación aplicada correctamente!', '', 'success', 2500);
+   pintarEvaluacionesPorCliente('listado_evaluaciones_cliente', cliente);
+}
+
+const fn_nueva_evaluacion = async (cliente) => {
+   const res = await showMessageSwalQuestion('¿Estás seguro?', 'La evaluación será registrada', 'question', 'Sí, registrar', 'Cancelar');
+   
+   if (!res.result) {
+      return;
+   }
+
+   let objEvaluacion = { id: '2', registro: '02-05-2026', aplicacion: '15-05-2026', hora:'14:00', personas: 20, tipo: 'Guía de referencia II', estatus: 'Programada', color: 'primary' };
+   dataEvaluaciones.push(objEvaluacion);
+   showMessageSwalTimer('¡Evaluación aplicada correctamente!', '', 'success', 2500);
+   pintarEvaluacionesPorCliente('listado_evaluaciones_cliente', cliente);
+   $('#modalFormEvaluacion').modal('hide');
+}
+
 const verTest = () => {
    window.open('guia1');
 }
@@ -592,3 +612,6 @@ window.ModalSubirPrograma          = ModalSubirPrograma;
 window.ModalEvaluacionesPorCliente = ModalEvaluacionesPorCliente;
 window.verTest                     = verTest;
 
+
+window.fn_marcar_aplicada          = fn_marcar_aplicada;
+window.fn_nueva_evaluacion         = fn_nueva_evaluacion;

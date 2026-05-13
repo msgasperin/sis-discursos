@@ -621,6 +621,10 @@ tool-tip {
 /* Laptops */
 @media only screen and (max-width: 1199px) {
 
+  .img-login {
+    width: 45%;
+  }
+
   .mh-card-clientes-header {
     min-height: 60px;
   }
@@ -656,6 +660,10 @@ tool-tip {
 
 /* Tablets */
 @media only screen and (max-width: 999px) {
+
+  .img-login {
+    width: 45%;
+  }
 
   .mh-card-clientes-header {
     min-height: 60px;
@@ -693,6 +701,10 @@ tool-tip {
 
 /* Celulares */
 @media only screen and (max-width: 575px) {
+
+  .img-login {
+    width: 45%;
+  }
 
   .mh-card-clientes-header {
     min-height: 0px;

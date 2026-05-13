@@ -46,84 +46,6 @@ const pintarClientes = (containerId) => {
          empleados:     320,
          registro:      '15-01-2024',
          estatus:       'Activo'
-      },
-      {
-         id: '2',
-         razonSocial:   'Servicios Beta S.C.',
-         rfc:           'SBE910705CD2',
-         sector:        'Consultoría',
-         contacto:      'Lic. Ana Torres',
-         telefono:      '55 9876 5432',
-         correo:        'atorres@serviciosbeta.mx',
-         ciudad:        'CDMX',
-         empleados:     85,
-         registro:      '03-03-2024',
-         estatus:       'Activo'
-      },
-      {
-         id: '3',
-         razonSocial:   'Logística Delta S.A. de C.V.',
-         rfc:           'LDE780220EF3',
-         sector:        'Transporte',
-         contacto:      'Mtro. Carlos Vega',
-         telefono:      '999 321 6547',
-         correo:        'cvega@logisticadelta.mx',
-         ciudad:        'Mérida, Yuc.',
-         empleados:     210,
-         registro:      '10-04-2024',
-         estatus:       'Activo'
-      },
-      {
-         id: '4',
-         razonSocial:   'Consultoría Gama S.C.',
-         rfc:           'CGA930118GH4',
-         sector:        'Recursos Humanos',
-         contacto:      'Dra. Sofía Ruiz',
-         telefono:      '33 4567 8901',
-         correo:        'sruiz@consultoriagama.mx',
-         ciudad:        'Guadalajara, Jal.',
-         empleados:     47,
-         registro:      '22-04-2024',
-         estatus:       'Inactivo'
-      },
-      {
-         id: '5',
-         razonSocial:   'Manufacturas Zeta S.A. de C.V.',
-         rfc:           'MZE011230IJ5',
-         sector:        'Manufactura',
-         contacto:      'Ing. Daniela Flores',
-         telefono:      '81 2345 6789',
-         correo:        'dflores@mfgzeta.mx',
-         ciudad:        'Monterrey, N.L.',
-         empleados:     540,
-         registro:      '05-05-2024',
-         estatus:       'Activo'
-      },
-      {
-         id: '6',
-         razonSocial:   'Tiendas Omega S.A. de C.V.',
-         rfc:           'TOE880430KL6',
-         sector:        'Retail',
-         contacto:      'Lic. Jorge Castillo',
-         telefono:      '222 654 3210',
-         correo:        'jcastillo@tiendasomega.mx',
-         ciudad:        'Puebla, Pue.',
-         empleados:     130,
-         registro:      '18-06-2024',
-         estatus:       'Activo'
-      },
-      {
-         id: '7',
-         razonSocial:   'Banco Capital S.A.',
-         rfc:           'BCA750901MN7',
-         sector:        'Finanzas',
-         contacto:      'C.P. Mariana León',
-         telefono:      '55 1122 3344',
-         correo:        'mleon@bancocapital.mx',
-         ciudad:        'CDMX',
-         empleados:     890,
-         registro:      '01-07-2024',
-         estatus:       'Activo'
       }
    ];
 
@@ -325,7 +247,7 @@ const ModalFormCliente = () => {
          </div>
       </div>
    </div>`;
-   $('#modalAdmin').html(html);
+   $('#modalAdminExt').html(html);
    $('#modalFormCliente').modal('show');
 }
 
