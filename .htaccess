@@ -4,6 +4,7 @@ RewriteEngine on
 RewriteRule ^inicio index.php
 RewriteRule ^webapp/admin webapp/admin.php
 RewriteRule ^webapp/guia1 webapp/test_guia1.php
+RewriteRule ^webapp/guia5 webapp/test_guia5.php
 RewriteRule ^webapp/plataforma webapp/plataforma.php
 
 # ── Headers de seguridad HTTP ────────────────────────────────

@@ -154,8 +154,14 @@ const pintarClientes = (containerId) => {
             <!-- Footer -->
             <div class="card-footer bg-white border-top-0 pb-3">
                <div class="d-flex justify-content-end gap-2">
-                  <button class="btn btn-menta btn-redondo btn-sm px-3" title="Ver evaluaciones" onclick="ModalEvaluacionesPorCliente('${cl.razonSocial}');">
+                  <button class="btn btn-menta btn-redondo btn-sm px-3 fs-8" title="Ver resultados globales" onclick="ModalResultadosGlobales('${cl.razonSocial}');">
+                     <i class="bi bi-file-bar-graph me-1"></i> Resultados Globales
+                  </button>
+                  <button class="btn btn-mostaza btn-redondo btn-sm px-3 fs-8" title="Ver evaluaciones" onclick="ModalEvaluacionesPorCliente('${cl.razonSocial}');">
                      <i class="bi bi-clipboard2-pulse me-1"></i> Evaluaciones
+                  </button>
+                  <button class="btn btn-outline-primary btn-redondo btn-sm px-2" title="Trabajadores" onclick="ModalTrabajadoresPorCliente('${cl.razonSocial}');">
+                     <i class="bi bi-people"></i>
                   </button>
                   <button class="btn btn-outline-secondary btn-redondo btn-sm px-2" title="Editar" onclick="ModalFormCliente('${cl.id}');">
                      <i class="bi bi-pencil"></i>

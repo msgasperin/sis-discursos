@@ -31,7 +31,7 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/styles.css?x=<?php echo time();?>" />
 		<link rel="stylesheet" type="text/css" href="assets/css/menu.css?x=<?php echo time();?>" />
 	</head>
-	<body onload="opcionActive('opcionEvaluaciones'), TabEvaluacionesCliente();">
+	<body onload="opcionActive('opcionEvaluaciones'), TabEvaluaciones();">
 		<?php require("menu_cliente.php")	?>
 		<div class="container-main">
 			<div id="containerMain"></div>
@@ -69,7 +69,14 @@
 		<script type="module" src="components/globals.js?<?=time()?>"></script>
 		<script type="module" src="components/Login/Login.js?<?=time()?>"></script>
 		<script type="module" src="components/Menu/Menu.js?<?=time()?>"></script>
-		<script type="module" src="components/Plataforma/Plataforma.js?<?=time()?>"></script>
+		<script type="module" src="components/Evaluaciones/Evaluaciones.js?<?=time()?>"></script>
+		<script type="module" src="components/Clientes/Clientes.js?<?=time()?>"></script>
+		<script type="module" src="components/Reportes/Reportes.js?<?=time()?>"></script>
+		<script type="module" src="components/Usuarios/Usuarios.js?<?=time()?>"></script>
+		<script type="module" src="components/Trabajadores/Trabajador.js?<?=time()?>"></script>
+		<script type="module" src="components/Resultados/Resultados.js?<?=time()?>"></script>
+		<script type="module" src="components/Programa/Programa.js?<?=time()?>"></script>
+		<script type="module" src="components/Implementacion/Implementacion.js?<?=time()?>"></script>
 		<script>
 			$(document).on('select2:open', function() {
 				let input = document.querySelector('.select2-container--open .select2-search__field');

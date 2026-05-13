@@ -1,7 +1,8 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ FUNCIONES MODAL LISTADO EVALUACIONES +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 let dataEvaluaciones = [
-   { id: '1', registro: '01-05-2026', aplicacion: '10-05-2026', hora:'12:00', personas: 15, tipo: 'Guía de referencia I', estatus: 'Programada', color: 'primary' }
+   { id: '1', registro: '01-05-2026', aplicacion: '10-05-2026', hora:'12:00', personas: 15, tipo: 'Guía de referencia I', estatus: 'Aplicada', color: 'success' },
+   { id: '2', registro: '01-05-2026', aplicacion: '20-06-2026', hora:'12:00', personas: 15, tipo: 'Guía de referencia I', estatus: 'Programada', color: 'primary' }
 ];
 
 const TabEvaluaciones = () => {
@@ -13,7 +14,7 @@ const TabEvaluaciones = () => {
          <div class="fs-4"> <i class="bi bi-clipboard-data"></i> Evaluaciones</div>
       </div>
       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-4 col-6 mt-2">
-         <button class="btn btn-dark btn-lib btn-redondo w-100 fs-6" type="button" id="btnNuevaCita" onclick="ModalFormEvaluacion();"><i class="bi bi-plus-lg"></i> Nueva evaluación</button>
+         <button class="btn btn-dark btn-lib btn-redondo w-100 fs-6" type="button" id="btnNuevaCita" onclick="ModalResultadosGlobales();">Resultados Globales</button>
       </div>
    </div>
    <div class="row mt-3">
@@ -37,133 +38,9 @@ const TabEvaluaciones = () => {
 
    $('#containerMain').html(html);
    setTimeout(() => {
-      pintarEvaluaciones('listado_evaluaciones');
+      pintarEvaluacionesPorCliente('listado_evaluaciones', 'Industrias Alfa');
       closeLoad();
    }, 500);
-}
-
-const pintarEvaluaciones = (containerId) => {
-   const contenedor = document.getElementById(containerId);
-   
-   const evaluaciones = [
-      { id: '1', cliente: 'Industrias Alfa', registro: '01-05-2026', aplicacion: '10-05-2026', hora:'12:00', personas: 15, tipo: 'Guía de referencia I', estatus: 'Programada', color: 'primary' },
-      { id: '2', cliente: 'Servicios Beta', registro: '02-05-2026', aplicacion: '08-05-2026', hora:'12:00', personas: 45, tipo: 'Guía de referencia II', estatus: 'Aplicada', color: 'success', resultado: 'Muy Alto' }
-   ];
-
-   // Función interna para obtener el color quemado del resultado
-   const obtenerEstiloResultado = (nivel) => {
-      const mapeo = {
-         'Muy Alto': { color: '#8b0000', icono: 'bi-exclamation-triangle-fill' },
-         'Alto':     { color: '#cc5500', icono: 'bi-exclamation-octagon-fill' },
-         'Medio':    { color: '#b8860b', icono: 'bi-info-circle-fill' },
-         'Bajo':     { color: '#1e5631', icono: 'bi-check-circle-fill' },
-         'Nulo':     { color: '#4a4a4a', icono: 'bi-slash-circle' }
-      };
-      return mapeo[nivel] || mapeo['Nulo'];
-   };
-
-   let html = `<div class="row g-4">`;
-
-   evaluaciones.forEach(ev => {
-      // Lógica para el bloque de resultado (solo si está Aplicada)
-      let htmlResultado = '';
-      if (ev.estatus === 'Aplicada' && ev.resultado) {
-         const estilo = obtenerEstiloResultado(ev.resultado);
-         htmlResultado = `
-         <div class="mt-3 p-2 rounded-3 d-flex align-items-center justify-content-between" 
-               style="background-color: ${estilo.color}10; border: 1px dashed ${estilo.color}50;">
-            <div class="d-flex align-items-center">
-               <i class="bi ${estilo.icono} me-2" style="color: ${estilo.color};"></i>
-               <small class="text-secondary fw-medium">Resultado:</small>
-            </div>
-            <span class="fw-bold" style="color: ${estilo.color}; font-size: 0.8rem;">
-               ${ev.resultado.toUpperCase()}
-            </span>
-         </div>`;
-      }
-
-      html += `
-      <div class="col-12 col-md-6 col-lg-4">
-         <div class="card h-100 shadow border-0">
-            <div class="card-header bg-white border-bottom-0 pt-3 d-flex justify-content-between align-items-center">
-               <span class="badge rounded-pill bg-${ev.color} bg-opacity-10 text-${ev.color} border border-${ev.color}">
-                  ${ev.estatus}
-               </span>
-               <small class="text-muted">ID: #${ev.id}</small>
-            </div>
-            <div class="card-body">
-               <h5 class="card-title text-dark fw-bold mb-3">${ev.cliente}</h5>
-               
-               <div class="mb-2">
-                  <p class="text-secondary mb-1 fs-7">Evaluación:</p>
-                  <span class="fw-medium text-dark"><i class="bi bi-file-earmark-text me-1"></i>${ev.tipo}</span>
-               </div>
-
-               <div class="row mt-3">
-                  <div class="col-6">
-                     <p class="text-secondary mb-0 fs-8">Registro:</p>
-                     <small class="fw-bold text-dark">${ev.registro}</small>
-                  </div>
-                  <div class="col-6 border-start">
-                     <p class="text-secondary mb-0 fs-8">Aplicación:</p>
-                     <small class="fw-bold text-dark">${ev.aplicacion} <span class="text-muted fw-normal">${ev.hora}</span></small>
-                  </div>
-               </div>
-
-               <div class="mt-3 p-2 bg-light rounded d-flex align-items-center">
-                  <i class="bi bi-people text-primary me-2"></i>
-                  <span class="small text-dark">Personas: <strong>${ev.personas}</strong></span>
-               </div>
-
-               <!-- Aquí se inyecta el resultado solo si aplica -->
-               ${htmlResultado}
-
-            </div>
-            <div class="card-footer bg-white border-top-0 pb-3">
-               <div class="d-flex justify-content-end gap-2">`;
-                  if (ev.estatus === 'Aplicada' || ev.estatus === 'Finalizada') {
-                     html+=`
-                     <button class="btn btn-sm btn-menta px-3 btn-redondo" onclick="ModalVerTests();">
-                        Ver Evaluaciones
-                     </button>`;
-                  }
-
-                  if (ev.estatus === 'Aplicada') {
-                     html+=`
-                     <button class="btn btn-sm btn-mostaza btn-redondo ms-1" title="Subir programa" onclick="ModalSubirPrograma();">
-                        <i class="bi bi-file-earmark-arrow-up"></i>
-                     </button>`;
-                  }
-
-                  if (ev.estatus === 'Finalizada') {
-                     html+=`
-                     <button class="btn btn-sm btn-secondary btn-redondo ms-1" title="Ver programa" onclick="ModalVerPrograma();">
-                        <i class="bi bi-file-text"></i>
-                     </button>`;
-                  }
-                  
-                  if (ev.estatus === 'Programada') {
-                     html+=`
-                     <a href="guia1" target="_blank" class="btn btn-sm btn-mostaza btn-redondo" title="Aplicar evaluación">
-                        Aplicar evaluación
-                     </a>
-                     <button class="btn btn-sm btn-outline-secondary btn-redondo ms-1" title="Editar" onclick="ModalFormEvaluacion();">
-                        <i class="bi bi-pencil"></i>
-                     </button>
-                     <button class="btn btn-sm btn-salmon btn-redondo ms-1" title="Eliminar">
-                        <i class="bi bi-trash"></i>
-                     </button>`;
-                  }
-                  html+=`
-               </div>
-            </div>
-         </div>
-      </div>`;
-   });
-
-   html += `</div>`;
-
-   contenedor.innerHTML = html;
 }
 
 const ModalFormEvaluacion = (cliente) => {
@@ -234,183 +111,7 @@ const ModalFormEvaluacion = (cliente) => {
    }, 100);
 }
 
-const ModalVerTests = () => {
-   let html = `
-   <div class="modal fade modal-superior-blur" id="modalVerTests" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
-      <div class="modal-dialog modal-xl modal-fullscreen-md-down">
-         <div class="modal-content sombra-modal">
-            <div class="modal-header modal-head-per">
-               <h1 class="modal-title fs-5">Tests aplicados en: Industrias Alfa</h1>
-               <button type="button" class="btn btn-outline-light btn-sm btn-redondo" data-bs-dismiss="modal" aria-label="Close">
-                  <i class="bi bi-x-lg"></i>
-               </button>
-            </div>
-            <div class="modal-body bg-light">
-               <div id="listado_tests_evaluacion"></div>
-            </div>
-            <div class="modal-footer bg-light border-0" align="right">
-               <button type="buttton" class="btn btn-outline-dark btn-redondo" data-bs-dismiss="modal">
-                  Cerrar
-               </button>
-            </div>
-         </div>
-      </div>
-   </div>`;
-   $('#modalAdminExt').html(html);
-   $('#modalVerTests').modal('show');
-   setTimeout(() => {
-      pintarResumenEvaluaciones('listado_tests_evaluacion')
-   }, 100);
-}
-
-const pintarResumenEvaluaciones = (containerId) => {
-   const contenedor = document.getElementById(containerId);
-   
-   const resultados = [
-      { id: '101', nivel: 'Muy Alto' },
-      { id: '102', nivel: 'Alto' },
-      { id: '103', nivel: 'Medio' },
-      { id: '104', nivel: 'Bajo' },
-      { id: '105', nivel: 'Nulo' },
-      { id: '106', nivel: 'Muy Alto' },
-      { id: '107', nivel: 'Bajo' }
-   ];
-
-   const obtenerConfiguracion = (nivel) => {
-      const mapeo = {
-         'Muy Alto': { color: '#8b0000', icono: 'bi-exclamation-triangle-fill' }, // Rojo Sangre
-         'Alto':     { color: '#cc5500', icono: 'bi-exclamation-octagon-fill' },  // Naranja Quemado
-         'Medio':    { color: '#b8860b', icono: 'bi-info-circle-fill' },         // Dorado Oscuro
-         'Bajo':     { color: '#1e5631', icono: 'bi-check-circle-fill' },        // Verde Bosque
-         'Nulo':     { color: '#4a4a4a', icono: 'bi-slash-circle' }              // Gris Carbón
-      };
-      return mapeo[nivel] || mapeo['Nulo'];
-   };
-
-   let html = `<div class="row g-4 mt-2">`;
-
-   resultados.forEach(res => {
-      const config = obtenerConfiguracion(res.nivel);
-      
-      html += `
-      <div class="col-6 col-md-4 col-lg-3">
-         <!-- Card con borde superior grueso del color quemado -->
-         <div class="card h-100 shadow-sm border-0 border-top border-4 pointer" style="border-color: ${config.color} !important;" onclick="verTest();">
-            <div class="card-body text-center py-4 px-3">
-               
-               <!-- Ícono con el tono fuerte -->
-               <div class="mb-2" style="color: ${config.color};">
-                  <i class="bi ${config.icono} fs-1"></i>
-               </div>
-               
-               <!-- ID Numérico con estilo sobrio -->
-               <div class="small fw-bold text-muted mb-3" style="letter-spacing: 1px;">
-                  ID: ${res.id}
-               </div>
-               
-               <!-- Badge con fondo traslúcido y texto fuerte -->
-               <div class="py-2 px-1 rounded-pill fw-bold" 
-                    style="font-size: 0.7rem; 
-                           color: ${config.color}; 
-                           background-color: ${config.color}15; 
-                           border: 1px solid ${config.color}40;">
-                  ${res.nivel.toUpperCase()}
-               </div>
-
-            </div>
-         </div>
-      </div>`;
-   });
-
-   html += `</div>`;
-
-   contenedor.innerHTML = html;
-}
-
-const ModalSubirPrograma = () => {
-
-   let html = `
-   <div class="modal fade modal-superior-blur" id="modalSubirPrograma" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
-      <div class="modal-dialog modal-lg modal-fullscreen-md-down">
-         <div class="modal-content sombra-modal">
-            <div class="modal-header modal-head-per">
-               <h1 class="modal-title fs-5">Subir programa</h1>
-               <button type="button" class="btn btn-outline-light btn-sm btn-redondo" data-bs-dismiss="modal" aria-label="Close">
-                  <i class="bi bi-x-lg"></i>
-               </button>
-            </div>
-            <div class="modal-body bg-light">
-               <div class="p-3 rounded-3 shadow-sm">
-                  <div class="d-flex justify-content-between align-items-start mb-2">
-                     <div>
-                        <h5 class="text-dark fw-bold mb-0">Servicios Beta</h5>
-                        <small class="text-muted">ID de Seguimiento: #2</small>
-                     </div>
-                     <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary-subtle">
-                        <i class="bi bi-file-earmark-arrow-up me-1"></i> Adjuntar Programa
-                     </span>
-                  </div>
-
-                  <hr class="my-2 opacity-25">
-
-                  <div class="row g-2">
-                     <div class="col-sm-6">
-                        <div class="d-flex align-items-center">
-                           <div class="icon-box bg-white btn-redondo shadow-sm p-2 me-2">
-                              <i class="bi bi-file-earmark-text"></i>
-                           </div>
-                           <div>
-                              <p class="text-secondary mb-0 fs-7">Tipo de Evaluación</p>
-                              <span class="fw-medium d-block fs-8">Guía de Referencia II</span>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-sm-6">
-                        <div class="d-flex align-items-center">
-                           <div class="icon-box bg-white btn-redondo shadow-sm p-2 me-2">
-                              <i class="bi bi-calendar-check text-primary"></i>
-                           </div>
-                           <div>
-                              <p class="text-secondary mb-0 fs-7">Fecha de Aplicación</p>
-                              <span class="fw-medium d-block fs-8">08-05-2026</span>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-
-               <div class="row mt-5">
-                  <div class="col-12">
-                     <label class="text-dark fw-bold">
-                        Seleccionar archivo
-                     </label>
-                     <input type="file" name="programa" id="programa" class="form-control" accept=".pdf">
-                     <span class="small text-secondary">
-                        <i class="bi bi-info-circle me-1"></i> 
-                        Por favor, seleccione el archivo PDF correspondiente al programa de trabajo resultante de esta evaluación.
-                     </span>
-                  </div>
-                  <div class="col-12 mt-4 mb-3">
-                     <label class="text-dark fw-bold">Observación adicional</label>
-                     <textarea name="obsPrograma" id="obsPrograma" class="form-control fs-7" rows="3" maxlength="200">Ingresa aquí algún comentario adicional</textarea>
-                  </div>
-               </div>
-
-            </div>
-            <div class="modal-footer bg-light" align="right">
-               <button type="button" class="btn btn-dark btn-redondo btn-lib">
-                  Subir programa
-               </button>
-               <button type="buttton" class="btn btn-outline-dark btn-redondo" data-bs-dismiss="modal">
-                  Cerrar
-               </button>
-            </div>
-         </div>
-      </div>
-   </div>`;
-   $('#modalAdmin').html(html);
-   $('#modalSubirPrograma').modal('show');
-}
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ FUNCIONES EVALUACIONES POR CLIENTE +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const ModalEvaluacionesPorCliente = (cliente) => {
    let html = `
@@ -527,8 +228,8 @@ const pintarEvaluacionesPorCliente = (containerId, clienteNombre) => {
                <div class="d-flex justify-content-end gap-2">`;
                   if (ev.estatus === 'Aplicada' || ev.estatus === 'Finalizada') {
                      html+=`
-                     <button class="btn btn-sm btn-menta px-3 btn-redondo" onclick="ModalVerTests();">
-                        Ver Evaluaciones
+                     <button class="btn btn-sm btn-menta px-3 btn-redondo" onclick="ModalResultadosEvaluacion();">
+                        Ver Resultados
                      </button>`;
                   }
 
@@ -548,10 +249,10 @@ const pintarEvaluacionesPorCliente = (containerId, clienteNombre) => {
                   
                   if (ev.estatus === 'Programada') {
                      html+=`
-                     <a href="guia1" target="_blank" class="btn btn-sm btn-mostaza btn-redondo" title="Aplicar examen">
-                        Aplicar examen
-                     </a>
-                     <button class="btn btn-sm btn-outline-success btn-redondo ms-1" title="Marcar como aplicada" onclick="fn_marcar_aplicada('${clienteNombre}');">
+                     <button class="btn btn-sm btn-mostaza btn-redondo" title="Aplicar test" onclick="ModalAplicarEvaluacion(0, '${clienteNombre}');">
+                        Aplicar test
+                     </button>
+                     <button class="btn btn-sm btn-menta btn-redondo ms-1" title="Marcar como aplicada" onclick="fn_marcar_aplicada('${clienteNombre}');">
                         <i class="bi bi-check-lg"></i>
                      </button>
                      <button class="btn btn-sm btn-outline-secondary btn-redondo ms-1" title="Editar" onclick="ModalFormEvaluacion();">
@@ -573,7 +274,7 @@ const pintarEvaluacionesPorCliente = (containerId, clienteNombre) => {
 }
 
 const fn_marcar_aplicada = async (cliente) => {
-   const res = await showMessageSwalQuestion('¿Estás seguro?', 'La evaluación será marcada como aplicada', 'question', 'Sí, marcar', 'Cancelar');
+   const res = await showMessageSwalQuestion('¿Estás seguro?', 'La evaluación será marcada como aplicada y se realizará el cálculo de la calificación final', 'question', 'Sí, calificar', 'Cancelar');
    
    if (!res.result) {
       return;
@@ -593,25 +294,210 @@ const fn_nueva_evaluacion = async (cliente) => {
       return;
    }
 
-   let objEvaluacion = { id: '2', registro: '02-05-2026', aplicacion: '15-05-2026', hora:'14:00', personas: 20, tipo: 'Guía de referencia II', estatus: 'Programada', color: 'primary' };
+   let objEvaluacion = { id: '3', registro: '02-05-2026', aplicacion: '20-05-2026', hora:'14:00', personas: 20, tipo: 'Guía de referencia II', estatus: 'Programada', color: 'primary' };
    dataEvaluaciones.push(objEvaluacion);
-   showMessageSwalTimer('¡Evaluación aplicada correctamente!', '', 'success', 2500);
+   showMessageSwalTimer('¡Evaluación registrada correctamente!', '', 'success', 2500);
    pintarEvaluacionesPorCliente('listado_evaluaciones_cliente', cliente);
    $('#modalFormEvaluacion').modal('hide');
 }
 
-const verTest = () => {
-   window.open('guia1');
+const verGuiaReferencia = (destino) => {
+   window.open(destino);
+}
+
+const ModalAplicarEvaluacion = (idCliente, nomCliente) => {
+   let html = `
+   <div class="modal fade modal-superior-blur" id="modalAplicarEvaluacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-fullscreen-sm-down">
+         <div class="modal-content sombra-modal">
+
+            <div class="modal-header modal-head-per">
+               <h1 class="modal-title fs-5"><i class="bi bi-clipboard2-pulse me-2"></i>Aplicar Evaluación</h1>
+               <button type="button" class="btn btn-outline-light btn-sm btn-redondo" data-bs-dismiss="modal" aria-label="Close">
+                  <i class="bi bi-x-lg"></i>
+               </button>
+            </div>
+
+            <div class="modal-body bg-light">
+               <div class="row">
+
+                  <!-- Empresa -->
+                  <div class="col-12 mb-4">
+                     <div class="d-flex align-items-center gap-3 p-3 rounded-3 border bg-white">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 bg-light badge-circular">
+                           <i class="bi bi-building fs-7 text-azul-dark"></i>
+                        </div>
+                        <div>
+                           <span class="text-muted small">Empresa seleccionada</span>
+                           <p class="fw-bold mb-0 text-azul-dark">${nomCliente || '—'}</p>
+                        </div>
+                     </div>
+                  </div>
+
+                  <!-- Instrucción -->
+                  <div class="col-12 mb-3">
+                     <div class="d-flex align-items-start gap-2 p-3 rounded-3 separador">
+                        <i class="bi bi-info-circle-fill mt-1 text-mostaza"></i>
+                        <span class="small text-dark">
+                           Selecciona al trabajador al que se le aplicará la evaluación de factores de riesgo psicosocial
+                           conforme a la <strong>NOM-035-STPS-2018</strong>. Si el trabajador aún no está registrado,
+                           puedes darlo de alta desde esta misma pantalla.
+                        </span>
+                     </div>
+                  </div>
+
+                  <!-- Select trabajador -->
+                  <div class="col-12 mb-2 mt-2">
+                     <div class="rounded-bottom p-3 bg-white shadow">
+                        <label class="form-label small fw-semibold text-azul-dark text-uppercase mb-1">
+                           Selecciona un trabajador
+                        </label>
+                        <select name="trabajadoresTest" id="trabajadoresTest" class="form-select">
+                           <option value="0">— Elige una opción —</option>
+                           <option value="1">Ing. Roberto Flores</option>
+                           <option value="2">Ing. Alejandra Rodríguez</option>
+                        </select>
+                     </div>
+                  </div>
+
+               </div>
+            </div>
+
+            <div class="modal-footer bg-light border-0 d-flex justify-content-between align-items-center">
+               <button type="button" class="btn btn-outline-dark btn-redondo" onclick="verGuiaReferencia('guia5')">
+                  <i class="bi bi-person-plus me-1"></i> Dar de alta trabajador
+               </button>
+               <div class="d-flex gap-2">
+                  <button type="button" class="btn btn-outline-dark btn-redondo" data-bs-dismiss="modal">
+                     Cancelar
+                  </button>
+                  <button type="button" class="btn btn-dark btn-lib btn-redondo" onclick="verGuiaReferencia('guia5')">
+                     <i class="bi bi-check-lg me-1"></i> Continuar
+                  </button>
+               </div>
+            </div>
+
+         </div>
+      </div>
+   </div>`;
+   $('#modalAdminExt3').html(html);
+   $('#modalAplicarEvaluacion').modal('show');
+}
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ FUNCIONES GUARDADO DE TEST  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const fn_guardar_guia_v = async (cliente) => {
+   const res = await showMessageSwalQuestion('¿Estás seguro?', 'La información proporcionada será registrada / actualizada', 'question', 'Sí, guardar', 'Cancelar');
+   
+   if (!res.result) {
+      return;
+   }
+
+   dataEvaluaciones[0].estatus   = 'Aplicada';
+   dataEvaluaciones[0].resultado = 'Muy Alto';
+   dataEvaluaciones[0].color     = 'success';
+   showMessageSwalTimer('¡Información almacenada correctamente!', '', 'success', 2500);
+   window.location.href = "guia1";
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++ DECLARACIÓN DE FUNCIONES DE DETALLE EVALUACIÓN  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+const ModalSubirPrograma = () => {
+
+   let html = `
+   <div class="modal fade modal-superior-blur" id="modalSubirPrograma" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-fullscreen-md-down">
+         <div class="modal-content sombra-modal">
+            <div class="modal-header modal-head-per">
+               <h1 class="modal-title fs-5">Subir programa</h1>
+               <button type="button" class="btn btn-outline-light btn-sm btn-redondo" data-bs-dismiss="modal" aria-label="Close">
+                  <i class="bi bi-x-lg"></i>
+               </button>
+            </div>
+            <div class="modal-body bg-light">
+               <div class="p-3 rounded-3 shadow-sm">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                     <div>
+                        <h5 class="text-dark fw-bold mb-0">Servicios Beta</h5>
+                        <small class="text-muted">ID de Seguimiento: #2</small>
+                     </div>
+                     <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary-subtle">
+                        <i class="bi bi-file-earmark-arrow-up me-1"></i> Adjuntar Programa
+                     </span>
+                  </div>
+
+                  <hr class="my-2 opacity-25">
+
+                  <div class="row g-2">
+                     <div class="col-sm-6">
+                        <div class="d-flex align-items-center">
+                           <div class="icon-box bg-white btn-redondo shadow-sm p-2 me-2">
+                              <i class="bi bi-file-earmark-text"></i>
+                           </div>
+                           <div>
+                              <p class="text-secondary mb-0 fs-7">Tipo de Evaluación</p>
+                              <span class="fw-medium d-block fs-8">Guía de Referencia II</span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-sm-6">
+                        <div class="d-flex align-items-center">
+                           <div class="icon-box bg-white btn-redondo shadow-sm p-2 me-2">
+                              <i class="bi bi-calendar-check text-primary"></i>
+                           </div>
+                           <div>
+                              <p class="text-secondary mb-0 fs-7">Fecha de Aplicación</p>
+                              <span class="fw-medium d-block fs-8">08-05-2026</span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="row mt-5">
+                  <div class="col-12">
+                     <label class="text-dark fw-bold">
+                        Seleccionar archivo
+                     </label>
+                     <input type="file" name="programa" id="programa" class="form-control" accept=".pdf">
+                     <span class="small text-secondary">
+                        <i class="bi bi-info-circle me-1"></i> 
+                        Por favor, seleccione el archivo PDF correspondiente al programa de trabajo resultante de esta evaluación.
+                     </span>
+                  </div>
+                  <div class="col-12 mt-4 mb-3">
+                     <label class="text-dark fw-bold">Observación adicional</label>
+                     <textarea name="obsPrograma" id="obsPrograma" class="form-control fs-7" rows="3" maxlength="200">Ingresa aquí algún comentario adicional</textarea>
+                  </div>
+               </div>
+
+            </div>
+            <div class="modal-footer bg-light" align="right">
+               <button type="button" class="btn btn-dark btn-redondo btn-lib">
+                  Subir programa
+               </button>
+               <button type="buttton" class="btn btn-outline-dark btn-redondo" data-bs-dismiss="modal">
+                  Cerrar
+               </button>
+            </div>
+         </div>
+      </div>
+   </div>`;
+   $('#modalAdmin').html(html);
+   $('#modalSubirPrograma').modal('show');
 }
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ DECLARACIÓN DE FUNCIONES  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 window.TabEvaluaciones             = TabEvaluaciones;
 window.ModalFormEvaluacion         = ModalFormEvaluacion; 
-window.ModalVerTests               = ModalVerTests;
+
 window.ModalSubirPrograma          = ModalSubirPrograma;
 window.ModalEvaluacionesPorCliente = ModalEvaluacionesPorCliente;
-window.verTest                     = verTest;
+window.ModalAplicarEvaluacion      = ModalAplicarEvaluacion;
 
-
+window.verGuiaReferencia           = verGuiaReferencia;
 window.fn_marcar_aplicada          = fn_marcar_aplicada;
 window.fn_nueva_evaluacion         = fn_nueva_evaluacion;
+window.fn_guardar_guia_v           = fn_guardar_guia_v;

@@ -72,7 +72,11 @@
 		<script type="module" src="components/Evaluaciones/Evaluaciones.js?<?=time()?>"></script>
 		<script type="module" src="components/Clientes/Clientes.js?<?=time()?>"></script>
 		<script type="module" src="components/Reportes/Reportes.js?<?=time()?>"></script>
-		<script type="module" src="components/Usuarios/Usuarios.js?<?=time()?>"></script>	
+		<script type="module" src="components/Usuarios/Usuarios.js?<?=time()?>"></script>
+		<script type="module" src="components/Trabajadores/Trabajador.js?<?=time()?>"></script>
+		<script type="module" src="components/Resultados/Resultados.js?<?=time()?>"></script>
+		<script type="module" src="components/Programa/Programa.js?<?=time()?>"></script>
+		<script type="module" src="components/Implementacion/Implementacion.js?<?=time()?>"></script>
 
 		<script>
 			$(document).on('select2:open', function() {

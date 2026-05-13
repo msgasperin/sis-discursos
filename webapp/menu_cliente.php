@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="mt-cel">
-          <div class="opciones_menu align-menu" id="opcionEvaluaciones" onclick="opcionActive('opcionEvaluaciones'), TabEvaluacionesCliente(), cerrarMenu();">
+          <div class="opciones_menu align-menu" id="opcionEvaluaciones" onclick="opcionActive('opcionEvaluaciones'), TabEvaluaciones(), cerrarMenu();">
             <i class="bi bi-clipboard-data icon-menu"></i>
             <div>Evaluaciones</div>
           </div>
